@@ -21,4 +21,26 @@ campsiteRouter.route('/')
     res.end('Deleting all campsites');
 });
 
-module.exports = campsiteRouter
+campsiteRouter.route('/:campsiteId')
+.all((req, res, next) => {
+    res.statusCode = 200;
+    res.setHeader('Content-Type', 'text/plain');
+    next();
+})
+.get((req, res) => {
+    res.end(`Here are the details to the campsite ${req.params.campsiteId}`);
+})
+.post((req, res) => {
+    res.end(`Will add the campsite: ${req.body.name} with description: ${req.body.description}`);
+})
+.put((req, res) => {
+    res.write(`Updating the campsite: ${req.params.campsiteId}\n`);
+    res.end(`Will update the campsite: ${req.body.name}
+        with description: ${req.body.description}`);
+})
+.delete((req, res) => {
+    res.end(`Will delete campsite ${req.params.campsiteId}`);
+});
+
+
+module.exports = campsiteRouter;
